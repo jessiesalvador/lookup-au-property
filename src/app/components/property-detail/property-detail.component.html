@@ -1,0 +1,109 @@
+<div class="detail-overlay" (click)="close.emit()">
+  <div class="detail-panel" (click)="$event.stopPropagation()">
+
+    <div class="detail-header">
+      <div class="header-image">
+        <div class="img-placeholder">
+          <mat-icon>home_work</mat-icon>
+        </div>
+        <div class="header-gradient"></div>
+      </div>
+      <div class="header-content">
+        <div class="type-badge">{{ property.propertyType }}</div>
+        <h2 class="detail-address">
+          {{ property.address.streetNumber }} {{ property.address.streetName }}
+        </h2>
+        <p class="detail-suburb">
+          {{ property.address.suburb }}, {{ property.address.state }} {{ property.address.postcode }}
+        </p>
+      </div>
+      <button mat-icon-button class="close-btn" (click)="close.emit()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <div class="detail-body">
+
+      <!-- Key Stats -->
+      <section class="stats-section">
+        <div class="stat-tile" *ngIf="property.bedrooms !== null">
+          <mat-icon>bed</mat-icon>
+          <span class="stat-value">{{ property.bedrooms }}</span>
+          <span class="stat-label">Bedrooms</span>
+        </div>
+        <div class="stat-tile" *ngIf="property.bathrooms !== null">
+          <mat-icon>shower</mat-icon>
+          <span class="stat-value">{{ property.bathrooms }}</span>
+          <span class="stat-label">Bathrooms</span>
+        </div>
+        <div class="stat-tile" *ngIf="property.carSpaces !== null">
+          <mat-icon>directions_car</mat-icon>
+          <span class="stat-value">{{ property.carSpaces }}</span>
+          <span class="stat-label">Car Spaces</span>
+        </div>
+        <div class="stat-tile" *ngIf="property.yearBuilt !== null">
+          <mat-icon>construction</mat-icon>
+          <span class="stat-value">{{ property.yearBuilt }}</span>
+          <span class="stat-label">Year Built</span>
+        </div>
+      </section>
+
+      <!-- Areas -->
+      <section class="info-section">
+        <h3 class="section-title">
+          <mat-icon>square_foot</mat-icon> Area & Size
+        </h3>
+        <div class="info-grid">
+          <div class="info-row">
+            <span class="info-key">Floor Area</span>
+            <span class="info-val">
+              {{ property.floorArea ? property.floorArea + ' m²' : 'Not available' }}
+            </span>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="info-row">
+            <span class="info-key">Lot / Land Area</span>
+            <span class="info-val">
+              {{ property.lotArea ? property.lotArea + ' m²' : (property.propertyType === 'Apartment' ? 'N/A (Apartment)' : 'Not available') }}
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sale History -->
+      <section class="info-section">
+        <h3 class="section-title">
+          <mat-icon>sell</mat-icon> Sale History
+        </h3>
+        <div class="info-grid">
+          <div class="info-row">
+            <span class="info-key">Last Sale Price</span>
+            <span class="info-val highlight">{{ formatPrice(property.lastSalePrice) }}</span>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="info-row">
+            <span class="info-key">Last Sale Date</span>
+            <span class="info-val">{{ formatDate(property.lastSaleDate) }}</span>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="info-row">
+            <span class="info-key">Land Value</span>
+            <span class="info-val">{{ formatPrice(property.landValue) }}</span>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <div class="detail-footer">
+      <p class="data-source-note">
+        <mat-icon>info_outline</mat-icon>
+        Data shown is mock/demo data. Connect PropTrack API for live results.
+      </p>
+      <button mat-raised-button color="primary" (click)="close.emit()">
+        Back to Results
+      </button>
+    </div>
+
+  </div>
+</div>

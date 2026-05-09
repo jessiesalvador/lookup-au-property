@@ -1,0 +1,83 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$primary-palette: mat.m2-define-palette(mat.$m2-teal-palette, 700, 400, 900);
+$accent-palette: mat.m2-define-palette(mat.$m2-amber-palette, 600, 300, 800);
+$warn-palette: mat.m2-define-palette(mat.$m2-red-palette);
+
+$app-theme: mat.m2-define-light-theme((
+  color: (
+    primary: $primary-palette,
+    accent: $accent-palette,
+    warn: $warn-palette
+  ),
+  typography: mat.m2-define-typography-config(
+    $font-family: 'DM Sans, sans-serif'
+  ),
+  density: 0
+));
+
+@include mat.all-component-themes($app-theme);
+
+:root {
+  --color-primary:       #00695c;
+  --color-primary-dark:  #004d40;
+  --color-primary-light: #e0f2f1;
+  --color-accent:        #f59f00;
+  --color-accent-light:  #fff8e1;
+  --color-bg:            #f5f6f7;
+  --color-surface:       #ffffff;
+  --color-text:          #1a1a2e;
+  --color-text-muted:    #5f6b7a;
+  --color-border:        #e0e4ea;
+  --color-tag-bg:        #e0f2f1;
+  --color-tag-text:      #00695c;
+
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-xl: 32px;
+
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.05);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.06);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  background: var(--color-bg);
+  font-family: var(--font-body);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
+
+/* Mat overrides */
+.mat-mdc-form-field {
+  width: 100%;
+}
+
+.mat-mdc-card {
+  border-radius: var(--radius-md) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.mat-mdc-raised-button.mat-primary {
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
