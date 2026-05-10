@@ -2,17 +2,17 @@
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  padding: 14px 18px;
+  padding: 14px 18px 16px;
   margin-bottom: 22px;
   box-shadow: var(--shadow-sm);
 }
 
-/* Top row */
+/* ── Top row ── */
 .filters-top-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   gap: 12px;
 }
 
@@ -20,7 +20,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.07em;
@@ -41,7 +41,7 @@
 }
 
 .filtered-count {
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: var(--color-primary);
   background: var(--color-primary-light);
@@ -53,36 +53,28 @@
   font-size: 0.78rem;
   color: var(--color-text-muted);
   height: 30px;
-  line-height: 30px;
   padding: 0 8px;
 
   mat-icon {
-    font-size: 15px;
-    width: 15px;
-    height: 15px;
-    margin-right: 3px;
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+    margin-right: 2px;
   }
 
-  &:hover {
-    color: var(--color-text);
-  }
+  &:hover { color: var(--color-text); }
 }
 
-/* Horizontal scroll track */
+/* ── Horizontal scroll container ── */
 .filters-scroll-track {
   overflow-x: auto;
   overflow-y: visible;
-  /* Hide scrollbar on most browsers but keep functionality */
   scrollbar-width: thin;
   scrollbar-color: var(--color-border) transparent;
   padding-bottom: 4px;
 
-  &::-webkit-scrollbar {
-    height: 4px;
-  }
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
+  &::-webkit-scrollbar { height: 4px; }
+  &::-webkit-scrollbar-track { background: transparent; }
   &::-webkit-scrollbar-thumb {
     background: var(--color-border);
     border-radius: 2px;
@@ -94,24 +86,20 @@
   align-items: flex-start;
   gap: 0;
   min-width: max-content;
-  padding: 4px 2px 2px;
+  padding: 2px 2px 4px;
 }
 
-/* Individual filter group */
+/* ── Filter group ── */
 .filter-group {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 0 18px;
+  padding: 0 20px;
 
-  &:first-child {
-    padding-left: 2px;
-  }
+  &:first-child { padding-left: 2px; }
 
-  &--wide {
-    .filter-inputs {
-      gap: 8px;
-    }
+  &--price {
+    padding-right: 4px;
   }
 }
 
@@ -119,53 +107,39 @@
   display: flex;
   align-items: center;
   gap: 5px;
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: 0.73rem;
+  font-weight: 700;
   color: var(--color-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.06em;
   white-space: nowrap;
 
   mat-icon {
-    font-size: 15px;
-    width: 15px;
-    height: 15px;
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
     color: var(--color-primary);
   }
 }
 
-/* Input row */
+/* ── Dropdown inputs ── */
 .filter-inputs {
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
-.filter-field {
-  width: 80px;
+.filter-select {
+  width: 90px;
 
-  /* Compact the Material form field */
   ::ng-deep {
-    .mat-mdc-form-field-subscript-wrapper {
-      display: none; // hide the hint/error space to save height
-    }
-
-    .mat-mdc-text-field-wrapper {
-      padding: 0 10px;
-    }
-
+    .mat-mdc-form-field-subscript-wrapper { display: none; }
+    .mat-mdc-text-field-wrapper { padding: 0 10px; }
     .mat-mdc-form-field-infix {
       min-height: 40px;
       padding: 8px 0;
     }
-
-    input {
-      font-size: 0.88rem;
-    }
-  }
-
-  &--price {
-    width: 130px;
+    .mat-mdc-select-value-text { font-size: 0.86rem; }
   }
 }
 
@@ -174,14 +148,84 @@
   font-weight: 500;
   font-size: 0.9rem;
   flex-shrink: 0;
-  margin-top: -6px; // visually center between the inputs
+  margin-top: -6px;
 }
 
-/* Vertical divider between groups */
+/* ── Vertical divider ── */
 .filter-divider {
   width: 1px;
-  height: 70px;
+  height: 76px;
   background: var(--color-border);
   align-self: center;
   flex-shrink: 0;
+}
+
+/* ── Price section ── */
+.price-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.price-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.price-row-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  width: 28px;
+  flex-shrink: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.price-scroll-track {
+  overflow-x: auto;
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+
+.price-scroll-inner {
+  display: flex;
+  gap: 6px;
+  padding: 2px 0;
+}
+
+.price-btn {
+  height: 34px;
+  padding: 0 14px;
+  border-radius: 20px;
+  border: 1.5px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: 0.8rem;
+  font-weight: 500;
+  font-family: var(--font-body);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+
+  &:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background: var(--color-primary-light);
+  }
+
+  &--active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #ffffff;
+    font-weight: 600;
+
+    &:hover {
+      background: var(--color-primary-dark);
+      border-color: var(--color-primary-dark);
+      color: #ffffff;
+    }
+  }
 }

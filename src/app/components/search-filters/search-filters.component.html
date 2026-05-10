@@ -1,8 +1,10 @@
 <div class="filters-wrapper" *ngIf="totalResults > 0">
+
+  <!-- Top row -->
   <div class="filters-top-row">
     <div class="filters-label">
       <mat-icon>tune</mat-icon>
-      <span>Filter results</span>
+      <span>Filters</span>
     </div>
     <div class="filters-summary" *ngIf="hasActiveFilters">
       <span class="filtered-count">{{ filteredResults }} of {{ totalResults }} shown</span>
@@ -13,6 +15,7 @@
     </div>
   </div>
 
+  <!-- Scrollable filter row -->
   <div class="filters-scroll-track">
     <div class="filters-scroll-inner">
 
@@ -23,28 +26,20 @@
           Bedrooms
         </div>
         <div class="filter-inputs">
-          <mat-form-field appearance="outline" class="filter-field">
+          <mat-form-field appearance="outline" class="filter-select">
             <mat-label>Min</mat-label>
-            <input
-              matInput
-              type="number"
-              min="0"
-              [(ngModel)]="filters.bedroomsMin"
-              (ngModelChange)="clampMin('bedroomsMin', 'bedroomsMax')"
-              placeholder="Any"
-            />
+            <mat-select [(ngModel)]="filters.bedroomsMin" (ngModelChange)="onFilterChange()">
+              <mat-option [value]="null">Any</mat-option>
+              <mat-option *ngFor="let n of bedroomOptions" [value]="n">{{ n }}+</mat-option>
+            </mat-select>
           </mat-form-field>
           <span class="input-separator">–</span>
-          <mat-form-field appearance="outline" class="filter-field">
+          <mat-form-field appearance="outline" class="filter-select">
             <mat-label>Max</mat-label>
-            <input
-              matInput
-              type="number"
-              min="0"
-              [(ngModel)]="filters.bedroomsMax"
-              (ngModelChange)="onFilterChange()"
-              placeholder="Any"
-            />
+            <mat-select [(ngModel)]="filters.bedroomsMax" (ngModelChange)="onFilterChange()">
+              <mat-option [value]="null">Any</mat-option>
+              <mat-option *ngFor="let n of bedroomOptions" [value]="n">{{ n }}</mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
       </div>
@@ -58,63 +53,47 @@
           Bathrooms
         </div>
         <div class="filter-inputs">
-          <mat-form-field appearance="outline" class="filter-field">
+          <mat-form-field appearance="outline" class="filter-select">
             <mat-label>Min</mat-label>
-            <input
-              matInput
-              type="number"
-              min="0"
-              [(ngModel)]="filters.bathroomsMin"
-              (ngModelChange)="clampMin('bathroomsMin', 'bathroomsMax')"
-              placeholder="Any"
-            />
+            <mat-select [(ngModel)]="filters.bathroomsMin" (ngModelChange)="onFilterChange()">
+              <mat-option [value]="null">Any</mat-option>
+              <mat-option *ngFor="let n of bathroomOptions" [value]="n">{{ n }}+</mat-option>
+            </mat-select>
           </mat-form-field>
           <span class="input-separator">–</span>
-          <mat-form-field appearance="outline" class="filter-field">
+          <mat-form-field appearance="outline" class="filter-select">
             <mat-label>Max</mat-label>
-            <input
-              matInput
-              type="number"
-              min="0"
-              [(ngModel)]="filters.bathroomsMax"
-              (ngModelChange)="onFilterChange()"
-              placeholder="Any"
-            />
+            <mat-select [(ngModel)]="filters.bathroomsMax" (ngModelChange)="onFilterChange()">
+              <mat-option [value]="null">Any</mat-option>
+              <mat-option *ngFor="let n of bathroomOptions" [value]="n">{{ n }}</mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
       </div>
 
       <div class="filter-divider"></div>
 
-      <!-- Car Spaces -->
+      <!-- Garage -->
       <div class="filter-group">
         <div class="filter-group-label">
           <mat-icon>directions_car</mat-icon>
           Garage
         </div>
         <div class="filter-inputs">
-          <mat-form-field appearance="outline" class="filter-field">
+          <mat-form-field appearance="outline" class="filter-select">
             <mat-label>Min</mat-label>
-            <input
-              matInput
-              type="number"
-              min="0"
-              [(ngModel)]="filters.carSpacesMin"
-              (ngModelChange)="clampMin('carSpacesMin', 'carSpacesMax')"
-              placeholder="Any"
-            />
+            <mat-select [(ngModel)]="filters.carSpacesMin" (ngModelChange)="onFilterChange()">
+              <mat-option [value]="null">Any</mat-option>
+              <mat-option *ngFor="let n of garageOptions" [value]="n">{{ n }}+</mat-option>
+            </mat-select>
           </mat-form-field>
           <span class="input-separator">–</span>
-          <mat-form-field appearance="outline" class="filter-field">
+          <mat-form-field appearance="outline" class="filter-select">
             <mat-label>Max</mat-label>
-            <input
-              matInput
-              type="number"
-              min="0"
-              [(ngModel)]="filters.carSpacesMax"
-              (ngModelChange)="onFilterChange()"
-              placeholder="Any"
-            />
+            <mat-select [(ngModel)]="filters.carSpacesMax" (ngModelChange)="onFilterChange()">
+              <mat-option [value]="null">Any</mat-option>
+              <mat-option *ngFor="let n of garageOptions" [value]="n">{{ n }}</mat-option>
+            </mat-select>
           </mat-form-field>
         </div>
       </div>
@@ -122,40 +101,58 @@
       <div class="filter-divider"></div>
 
       <!-- Price -->
-      <div class="filter-group filter-group--wide">
+      <div class="filter-group filter-group--price">
         <div class="filter-group-label">
           <mat-icon>sell</mat-icon>
-          Last Sale Price (AUD)
+          Price (Last Sale)
         </div>
-        <div class="filter-inputs">
-          <mat-form-field appearance="outline" class="filter-field filter-field--price">
-            <mat-label>Min $</mat-label>
-            <input
-              matInput
-              type="number"
-              min="0"
-              step="50000"
-              [(ngModel)]="filters.priceMin"
-              (ngModelChange)="clampMin('priceMin', 'priceMax')"
-              placeholder="Any"
-            />
-          </mat-form-field>
-          <span class="input-separator">–</span>
-          <mat-form-field appearance="outline" class="filter-field filter-field--price">
-            <mat-label>Max $</mat-label>
-            <input
-              matInput
-              type="number"
-              min="0"
-              step="50000"
-              [(ngModel)]="filters.priceMax"
-              (ngModelChange)="onFilterChange()"
-              placeholder="Any"
-            />
-          </mat-form-field>
+
+        <div class="price-rows">
+          <!-- Min price buttons -->
+          <div class="price-row">
+            <span class="price-row-label">From</span>
+            <div class="price-scroll-track">
+              <div class="price-scroll-inner">
+                <button
+                  *ngFor="let opt of priceMinOptions"
+                  class="price-btn"
+                  [class.price-btn--active]="isPriceMinActive(opt.value)"
+                  (click)="selectPriceMin(opt.value)"
+                >
+                  {{ opt.label }}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Max price buttons -->
+          <div class="price-row">
+            <span class="price-row-label">To</span>
+            <div class="price-scroll-track">
+              <div class="price-scroll-inner">
+                <button
+                  *ngFor="let opt of priceMaxOptions"
+                  class="price-btn"
+                  [class.price-btn--active]="isPriceMaxActive(opt.value)"
+                  (click)="selectPriceMax(opt.value)"
+                >
+                  {{ opt.label }}
+                </button>
+                <button
+                  class="price-btn"
+                  [class.price-btn--active]="filters.priceMax === null"
+                  (click)="filters.priceMax = null; onFilterChange()"
+                >
+                  Any
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
+
       </div>
 
     </div>
   </div>
+
 </div>
