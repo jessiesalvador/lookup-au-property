@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { PropertyFilters, EMPTY_FILTERS } from '../../models/filters.model';
+import { PropertyFilters, EMPTY_FILTERS } from '../../../models/filters.model';
 
 @Component({
   selector: 'app-search-filters',
