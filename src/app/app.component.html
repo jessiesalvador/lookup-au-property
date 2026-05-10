@@ -39,26 +39,47 @@
         </div>
       </div>
 
-      <!-- No results -->
+      <!-- No results from search -->
       <div class="state-container" *ngIf="!loading() && searched() && results().length === 0">
         <mat-icon class="no-results-icon">search_off</mat-icon>
         <p class="state-title">No properties found</p>
         <p class="state-message">No results matched "<strong>{{ lastQuery() }}</strong>". Try a different suburb, street name or postcode.</p>
       </div>
 
-      <!-- Results grid -->
+      <!-- Results + Filters -->
       <div *ngIf="!loading() && results().length > 0">
+
+        <!-- Filter bar -->
+        <app-search-filters
+          [totalResults]="results().length"
+          [filteredResults]="filteredResults().length"
+          (filtersChange)="onFiltersChange($event)"
+        ></app-search-filters>
+
+        <!-- Results header -->
         <div class="results-header">
-          <span class="results-count">{{ results().length }} propert{{ results().length === 1 ? 'y' : 'ies' }} found</span>
+          <span class="results-count">
+            {{ filteredResults().length }} propert{{ filteredResults().length === 1 ? 'y' : 'ies' }}
+          </span>
           <span class="results-query">for "<em>{{ lastQuery() }}</em>"</span>
         </div>
-        <div class="property-grid">
+
+        <!-- No results after filtering -->
+        <div class="state-container state-container--inline" *ngIf="filteredResults().length === 0">
+          <mat-icon class="no-results-icon">filter_alt_off</mat-icon>
+          <p class="state-title">No matches for these filters</p>
+          <p class="state-message">Try widening your filter ranges to see more results.</p>
+        </div>
+
+        <!-- Property grid -->
+        <div class="property-grid" *ngIf="filteredResults().length > 0">
           <app-property-card
-            *ngFor="let result of results()"
+            *ngFor="let result of filteredResults()"
             [property]="result.property"
             (viewDetail)="selectProperty($event)"
           ></app-property-card>
         </div>
+
       </div>
 
     </div>

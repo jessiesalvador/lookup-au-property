@@ -57,8 +57,14 @@
             "development": { "buildTarget": "lookup-au-property:build:development" }
           },
           "defaultConfiguration": "development"
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

@@ -219,3 +219,11 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Inline empty state (shown when filters remove all results) */
+.state-container--inline {
+  padding: 32px 24px;
+  background: var(--color-surface);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+}

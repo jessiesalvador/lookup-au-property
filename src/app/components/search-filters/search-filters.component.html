@@ -1,0 +1,161 @@
+<div class="filters-wrapper" *ngIf="totalResults > 0">
+  <div class="filters-top-row">
+    <div class="filters-label">
+      <mat-icon>tune</mat-icon>
+      <span>Filter results</span>
+    </div>
+    <div class="filters-summary" *ngIf="hasActiveFilters">
+      <span class="filtered-count">{{ filteredResults }} of {{ totalResults }} shown</span>
+      <button mat-button class="clear-btn" (click)="clearAll()">
+        <mat-icon>close</mat-icon>
+        Clear all
+      </button>
+    </div>
+  </div>
+
+  <div class="filters-scroll-track">
+    <div class="filters-scroll-inner">
+
+      <!-- Bedrooms -->
+      <div class="filter-group">
+        <div class="filter-group-label">
+          <mat-icon>bed</mat-icon>
+          Bedrooms
+        </div>
+        <div class="filter-inputs">
+          <mat-form-field appearance="outline" class="filter-field">
+            <mat-label>Min</mat-label>
+            <input
+              matInput
+              type="number"
+              min="0"
+              [(ngModel)]="filters.bedroomsMin"
+              (ngModelChange)="clampMin('bedroomsMin', 'bedroomsMax')"
+              placeholder="Any"
+            />
+          </mat-form-field>
+          <span class="input-separator">–</span>
+          <mat-form-field appearance="outline" class="filter-field">
+            <mat-label>Max</mat-label>
+            <input
+              matInput
+              type="number"
+              min="0"
+              [(ngModel)]="filters.bedroomsMax"
+              (ngModelChange)="onFilterChange()"
+              placeholder="Any"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="filter-divider"></div>
+
+      <!-- Bathrooms -->
+      <div class="filter-group">
+        <div class="filter-group-label">
+          <mat-icon>shower</mat-icon>
+          Bathrooms
+        </div>
+        <div class="filter-inputs">
+          <mat-form-field appearance="outline" class="filter-field">
+            <mat-label>Min</mat-label>
+            <input
+              matInput
+              type="number"
+              min="0"
+              [(ngModel)]="filters.bathroomsMin"
+              (ngModelChange)="clampMin('bathroomsMin', 'bathroomsMax')"
+              placeholder="Any"
+            />
+          </mat-form-field>
+          <span class="input-separator">–</span>
+          <mat-form-field appearance="outline" class="filter-field">
+            <mat-label>Max</mat-label>
+            <input
+              matInput
+              type="number"
+              min="0"
+              [(ngModel)]="filters.bathroomsMax"
+              (ngModelChange)="onFilterChange()"
+              placeholder="Any"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="filter-divider"></div>
+
+      <!-- Car Spaces -->
+      <div class="filter-group">
+        <div class="filter-group-label">
+          <mat-icon>directions_car</mat-icon>
+          Garage
+        </div>
+        <div class="filter-inputs">
+          <mat-form-field appearance="outline" class="filter-field">
+            <mat-label>Min</mat-label>
+            <input
+              matInput
+              type="number"
+              min="0"
+              [(ngModel)]="filters.carSpacesMin"
+              (ngModelChange)="clampMin('carSpacesMin', 'carSpacesMax')"
+              placeholder="Any"
+            />
+          </mat-form-field>
+          <span class="input-separator">–</span>
+          <mat-form-field appearance="outline" class="filter-field">
+            <mat-label>Max</mat-label>
+            <input
+              matInput
+              type="number"
+              min="0"
+              [(ngModel)]="filters.carSpacesMax"
+              (ngModelChange)="onFilterChange()"
+              placeholder="Any"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="filter-divider"></div>
+
+      <!-- Price -->
+      <div class="filter-group filter-group--wide">
+        <div class="filter-group-label">
+          <mat-icon>sell</mat-icon>
+          Last Sale Price (AUD)
+        </div>
+        <div class="filter-inputs">
+          <mat-form-field appearance="outline" class="filter-field filter-field--price">
+            <mat-label>Min $</mat-label>
+            <input
+              matInput
+              type="number"
+              min="0"
+              step="50000"
+              [(ngModel)]="filters.priceMin"
+              (ngModelChange)="clampMin('priceMin', 'priceMax')"
+              placeholder="Any"
+            />
+          </mat-form-field>
+          <span class="input-separator">–</span>
+          <mat-form-field appearance="outline" class="filter-field filter-field--price">
+            <mat-label>Max $</mat-label>
+            <input
+              matInput
+              type="number"
+              min="0"
+              step="50000"
+              [(ngModel)]="filters.priceMax"
+              (ngModelChange)="onFilterChange()"
+              placeholder="Any"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
