@@ -83,7 +83,7 @@
 
 .filters-scroll-inner {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 0;
   min-width: max-content;
   padding: 2px 2px 4px;
@@ -99,6 +99,7 @@
   &:first-child { padding-left: 2px; }
 
   &--price {
+    min-width: 320px;
     padding-right: 4px;
   }
 }
@@ -122,7 +123,7 @@
   }
 }
 
-/* ── Dropdown inputs ── */
+/* ── Dropdowns ── */
 .filter-inputs {
   display: flex;
   align-items: center;
@@ -160,72 +161,111 @@
   flex-shrink: 0;
 }
 
-/* ── Price section ── */
-.price-rows {
+/* ── Price range slider ── */
+.price-slider-area {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
+  width: 100%;
 }
 
-.price-row {
+.price-labels {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price-label-val {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+}
+
+.price-bounds {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+/* ── Dual range slider track ── */
+.slider-track-wrapper {
+  position: relative;
+  height: 36px;
   display: flex;
   align-items: center;
-  gap: 10px;
 }
 
-.price-row-label {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--color-text-muted);
-  width: 28px;
-  flex-shrink: 0;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+/* The grey base track */
+.slider-track-wrapper::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--color-border);
+  border-radius: 2px;
+  z-index: 1;
 }
 
-.price-scroll-track {
-  overflow-x: auto;
-  scrollbar-width: none;
-  &::-webkit-scrollbar { display: none; }
+/* The teal filled range between the two handles */
+.slider-range-fill {
+  position: absolute;
+  height: 4px;
+  background: var(--color-primary);
+  border-radius: 2px;
+  z-index: 2;
+  pointer-events: none;
 }
 
-.price-scroll-inner {
-  display: flex;
-  gap: 6px;
-  padding: 2px 0;
-}
+/* Both range inputs stacked on top of each other */
+.slider {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 4px;
+  background: transparent;
+  appearance: none;
+  -webkit-appearance: none;
+  pointer-events: none;
+  z-index: 3;
 
-.price-btn {
-  height: 34px;
-  padding: 0 14px;
-  border-radius: 20px;
-  border: 1.5px solid var(--color-border);
-  background: var(--color-surface);
-  color: var(--color-text);
-  font-size: 0.8rem;
-  font-weight: 500;
-  font-family: var(--font-body);
-  white-space: nowrap;
-  cursor: pointer;
-  transition: all 0.15s ease;
-  flex-shrink: 0;
-
-  &:hover {
-    border-color: var(--color-primary);
-    color: var(--color-primary);
-    background: var(--color-primary-light);
-  }
-
-  &--active {
-    background: var(--color-primary);
-    border-color: var(--color-primary);
-    color: #ffffff;
-    font-weight: 600;
+  &::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 2px solid var(--color-primary);
+    box-shadow: 0 1px 6px rgba(0,0,0,0.18);
+    cursor: pointer;
+    pointer-events: all;
+    transition: border-color 0.15s, box-shadow 0.15s;
 
     &:hover {
-      background: var(--color-primary-dark);
+      box-shadow: 0 0 0 6px rgba(0, 105, 92, 0.12);
+    }
+
+    &:active {
+      box-shadow: 0 0 0 8px rgba(0, 105, 92, 0.18);
       border-color: var(--color-primary-dark);
-      color: #ffffff;
     }
   }
+
+  &::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 2px solid var(--color-primary);
+    box-shadow: 0 1px 6px rgba(0,0,0,0.18);
+    cursor: pointer;
+    pointer-events: all;
+  }
+
+  &--min { z-index: 4; }
+  &--max { z-index: 4; }
 }

@@ -100,56 +100,54 @@
 
       <div class="filter-divider"></div>
 
-      <!-- Price -->
+      <!-- Price Range Slider -->
       <div class="filter-group filter-group--price">
         <div class="filter-group-label">
           <mat-icon>sell</mat-icon>
           Price (Last Sale)
         </div>
 
-        <div class="price-rows">
-          <!-- Min price buttons -->
-          <div class="price-row">
-            <span class="price-row-label">From</span>
-            <div class="price-scroll-track">
-              <div class="price-scroll-inner">
-                <button
-                  *ngFor="let opt of priceMinOptions"
-                  class="price-btn"
-                  [class.price-btn--active]="isPriceMinActive(opt.value)"
-                  (click)="selectPriceMin(opt.value)"
-                >
-                  {{ opt.label }}
-                </button>
-              </div>
-            </div>
+        <div class="price-slider-area">
+          <div class="price-labels">
+            <span class="price-label-val">{{ formatPrice(priceMinValue) }}</span>
+            <span class="price-label-val">{{ formatPrice(priceMaxValue) }}</span>
           </div>
 
-          <!-- Max price buttons -->
-          <div class="price-row">
-            <span class="price-row-label">To</span>
-            <div class="price-scroll-track">
-              <div class="price-scroll-inner">
-                <button
-                  *ngFor="let opt of priceMaxOptions"
-                  class="price-btn"
-                  [class.price-btn--active]="isPriceMaxActive(opt.value)"
-                  (click)="selectPriceMax(opt.value)"
-                >
-                  {{ opt.label }}
-                </button>
-                <button
-                  class="price-btn"
-                  [class.price-btn--active]="filters.priceMax === null"
-                  (click)="filters.priceMax = null; onFilterChange()"
-                >
-                  Any
-                </button>
-              </div>
+          <div class="slider-track-wrapper">
+            <!-- Filled range highlight -->
+            <div class="slider-range-fill"
+                 [style.left.%]="minPercent"
+                 [style.width.%]="maxPercent - minPercent">
             </div>
+
+            <!-- Min thumb -->
+            <input
+              type="range"
+              class="slider slider--min"
+              [min]="PRICE_MIN"
+              [max]="PRICE_MAX"
+              [step]="PRICE_STEP"
+              [value]="priceMinValue"
+              (input)="onMinSlider($event)"
+            />
+
+            <!-- Max thumb -->
+            <input
+              type="range"
+              class="slider slider--max"
+              [min]="PRICE_MIN"
+              [max]="PRICE_MAX"
+              [step]="PRICE_STEP"
+              [value]="priceMaxValue"
+              (input)="onMaxSlider($event)"
+            />
+          </div>
+
+          <div class="price-bounds">
+            <span>{{ formatPrice(PRICE_MIN) }}</span>
+            <span>{{ formatPrice(PRICE_MAX) }}</span>
           </div>
         </div>
-
       </div>
 
     </div>
